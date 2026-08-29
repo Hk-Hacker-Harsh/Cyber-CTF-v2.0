@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arcade Terminal - Log Parser</title>
+  <style>
+    body {
+      background-color: #0b0c10;
+      color: #66fcf1;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 40px;
+    }
+    .panel {
+      background-color: #1f2833;
+      border: 2px solid #45a29e;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 650px;
+      margin: 0 auto;
+      box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+    }
+    nav a {
+      color: #c5c6c7;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    nav a:hover { color: #66fcf1; }
+    pre {
+      background-color: #0b0c10;
+      border: 1px solid #45a29e;
+      padding: 15px;
+      color: #45a29e;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>[ ARCADE MEMORY VIEWER ]</h2>
+    <nav>
+      <a href="/?file=system.txt">System Diagnostics</a>
+      <a href="/?file=about.txt">About Module</a>
+    </nav>
+    <hr style="border: 0; border-top: 1px solid #45a29e; margin: 15px 0;">
+    <p>Viewing Buffer: <code>{{ page }}</code></p>
+    <pre>{{ content }}</pre>
+  </div>
+</body>
+</html>

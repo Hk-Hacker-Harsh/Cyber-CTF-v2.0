@@ -1,0 +1,4 @@
+[ARCADE SYSTEM DIAGNOSTIC]
+ROM Version: 1.0.8-alpha
+Memory Banks: Active
+Status: Nominal

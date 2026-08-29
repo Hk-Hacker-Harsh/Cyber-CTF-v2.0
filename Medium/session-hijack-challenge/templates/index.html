@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arcade Terminal - Session Gateway</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #58a6ff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .panel {
+      background: #161b22;
+      border: 2px solid #58a6ff;
+      border-radius: 8px;
+      padding: 30px;
+      width: 420px;
+      box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+    }
+    h2 { text-align: center; margin-top: 0; }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px 0;
+      background: #0d1117;
+      border: 1px solid #58a6ff;
+      color: #fff;
+      font-family: monospace;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #58a6ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .status-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: #0d1117;
+      border: 1px dashed #58a6ff;
+      font-size: 13px;
+    }
+    .flag-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: #238636;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: center;
+      word-break: break-all;
+    }
+    .log-leak {
+      margin-top: 15px;
+      font-size: 11px;
+      color: #8b949e;
+      border-top: 1px solid #30363d;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>[ ARCADE SESSION HUB ]</h2>
+
+    {% if not user %}
+      <p style="font-size: 13px;">Authenticate as <code>guest</code> to initialize an active terminal session.</p>
+      <form method="POST">
+        <label>Username:</label>
+        <input type="text" name="username" placeholder="guest" autocomplete="off" required>
+        <button type="submit">LOGIN</button>
+      </form>
+    {% else %}
+      <div class="status-box">
+        <strong>Active Session User:</strong> {{ user }}<br>
+      </div>
+    {% endif %}
+
+    {% if message %}
+      <p style="color: #f85149; font-size: 13px; text-align: center;">{{ message }}</p>
+    {% endif %}
+
+    {% if flag %}
+      <div class="flag-box">
+        FLAG: {{ flag }}
+      </div>
+    {% endif %}
+
+    <!-- Simulated telemetry log showing recent server handshakes -->
+    <div class="log-leak">
+      <strong>Recent Gateway Heartbeats:</strong><br>
+      • [10:42:01] Guest verified.<br>
+      • [10:41:55] Admin active in Sector 07.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arcade Terminal - Feedback Board</title>
+  <style>
+    body {
+      background-color: #0c0d14;
+      color: #ff0055;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .board-card {
+      background: #181926;
+      border: 2px solid #ff0055;
+      padding: 30px;
+      border-radius: 8px;
+      width: 450px;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    }
+    h2 { text-align: center; margin-top: 0; color: #ff0055; }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px 0;
+      background: #0c0d14;
+      border: 1px solid #ff0055;
+      color: #fff;
+      font-family: monospace;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #ff0055;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .feed-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: #0c0d14;
+      border: 1px dashed #ff0055;
+      color: #fff;
+      min-height: 40px;
+      word-break: break-all;
+    }
+    #result-box {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      background: #00ff66;
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+      word-break: break-all;
+    }
+  </style>
+
+  <!-- External/Encrypted helper: flag is NOT here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
+    const NONCE = "{{ nonce }}";
+
+    // Overriding alert to trigger the backend API verification
+    const originalAlert = window.alert;
+    window.alert = function(msg) {
+      originalAlert("Exploit Succeeded! Fetching key from core...");
+      
+      const proof = CryptoJS.SHA256(NONCE + "_glitch_solved").toString();
+      
+      fetch('/api/verify-xss', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: proof })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.flag) {
+          const resEl = document.getElementById('result-box');
+          resEl.style.display = 'block';
+          resEl.innerText = "FLAG: " + data.flag;
+        }
+      });
+    };
+  </script>
+</head>
+<body>
+  <div class="board-card">
+    <h2>[ GLITCH FEEDBACK BOARD ]</h2>
+    <p style="font-size:13px; color:#aaa;">Submit diagnostic reports to the motherboard display buffer.</p>
+    
+    <form method="POST">
+      <input type="text" name="payload" placeholder="Enter diagnostic message..." autocomplete="off" required>
+      <button type="submit">TRANSMIT</button>
+    </form>
+
+    <div class="feed-box">
+      <!-- Intentionally unescaped raw render -->
+      {{ user_input | safe }}
+    </div>
+
+    <div id="result-box"></div>
+  </div>
+</body>
+</html>
