@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arcade Vault - Time Lock</title>
+    <style>
+        body {
+            background-color: #0b0c10;
+            color: #66fcf1;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            border: 2px solid #45a29e;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            background: #1f2833;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+        }
+        .time { font-size: 28px; margin: 20px 0; color: #c5c6c7; }
+        .status { color: #66fcf1; font-weight: bold; }
+        .vault { margin-top: 20px; font-size: 20px; color: #45a29e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>[SECTOR 10] Time-Locked Flag Vault</h2>
+        <p>The vault opens precisely for 1 minute at: <b>12 PM, 3 PM, 6 PM, 9 PM</b> daily.</p>
+        
+        <div class="time">System Time: <span id="clock">00:00:00</span></div>
+        <div class="status" id="lock-status">STATUS: VAULT LOCKED</div>
+        <div class="vault" id="flag-display">=== ACCESS DENIED ===</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
